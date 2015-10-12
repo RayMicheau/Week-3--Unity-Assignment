@@ -3,32 +3,23 @@ using System.Collections;
 
 public class FirstScript : MonoBehaviour
 {
-    public float speed = 20;
+    public float speed = 10;
     public Rigidbody projectile;
     public Rigidbody cubeBits;
     public Vector3 wallCount;
     public Vector3 bulletCount;
+
+    private int count;
     // Use this for initialization
     void Start()
     {
-    /*
-        //Loops through X, Y, Z instantiating and moving the positions of each to make a cube or wall
-        for (int x = 0; x < wallCount.x; x++)
-        {
-            for (int y = 0; y < wallCount.y; y++)
-            {
-                for (int z = 0; z < wallCount.z; z++)
-                {
-                    Rigidbody instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x * 1.1F, y * 1.1f, z * 1.1f), transform.rotation) as Rigidbody;
-                }
-            }
-        }
-        */
+        count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //modify x, y, z numbers in editor to change how many bullets are fired in a grid pattern
         if (Input.GetButtonDown("Fire1"))
         {
             for (int x = 0; x < bulletCount.x; x++)
@@ -48,5 +39,12 @@ public class FirstScript : MonoBehaviour
 
         }
 
+    }
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Cube(Clone)"))
+        {
+            col.gameObject.SetActive(false);
+        }
     }
 }
