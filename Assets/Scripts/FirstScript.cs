@@ -5,20 +5,17 @@ public class FirstScript : MonoBehaviour
 {
     public float speed = 10;
     public Rigidbody projectile;
-    public Rigidbody cubeBits;
-    public Vector3 wallCount;
     public Vector3 bulletCount;
+    public Light flashlight;
 
-    private int count;
     // Use this for initialization
-    void Start()
-    {
-        count = 0;
+    void Start() {
     }
 
     // Update is called once per frame
     void Update()
     {
+        FlickLights();
         //modify x, y, z numbers in editor to change how many bullets are fired in a grid pattern
         if (Input.GetButtonDown("Fire1"))
         {
@@ -36,15 +33,19 @@ public class FirstScript : MonoBehaviour
                     }
                 }
             }
-
         }
-
     }
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("Cube(Clone)"))
+
+    void FlickLights(){
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            col.gameObject.SetActive(false);
+            if (!flashlight.enabled)
+            {
+                flashlight.enabled = true;
+            }
+            else if (flashlight.enabled) {
+                 flashlight.enabled = false;
+            }
         }
     }
 }

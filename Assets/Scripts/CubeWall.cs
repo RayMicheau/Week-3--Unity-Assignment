@@ -17,7 +17,7 @@ public class CubeWall : MonoBehaviour
             {
                 for (int z = 0; z < pos.z; z++)
                 {
-                    Rigidbody instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x * 1.11f, y * 1.1f, z * 1.11f), transform.rotation) as Rigidbody;
+                    Rigidbody instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x, y, z), transform.rotation) as Rigidbody;
                 }
             }
         }
@@ -26,22 +26,7 @@ public class CubeWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpawnBoxes();
-    }
-
-    void SpawnBoxes()
-    {
-        if (Input.GetButtonDown("Fire2"))
-            for (int x = 0; x < pos.x; x++)
-            {
-                for (int y = 0; y < pos.y; y++)
-                {
-                    for (int z = 0; z < pos.z; z++)
-                    {
-                        Rigidbody instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x * 1.11f, y * 1.1f, z * 1.11f), transform.rotation) as Rigidbody;
-                    }
-                }
-            }
+        //SpawnBoxes();
     }
 
 
