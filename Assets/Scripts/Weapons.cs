@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Weapons : MonoBehaviour {
+
     public GameObject[] weapons;
     public int currWeap;
 
@@ -28,8 +29,10 @@ public class Weapons : MonoBehaviour {
         }
     }
 
-    void changeWeapon(int num){
-        for (int i = 0; i < nrWeapons; i++){
+    void changeWeapon(int num)
+    {
+        for (int i = 0; i < nrWeapons; i++)
+        {
             if (i == num)
                 weapons[i].gameObject.SetActive(true);
             else
