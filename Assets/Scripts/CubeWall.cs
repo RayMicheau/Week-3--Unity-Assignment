@@ -7,6 +7,8 @@ public class CubeWall : MonoBehaviour
     Rigidbody cubeBits;
     [SerializeField]
     Vector3 pos;
+
+    Rigidbody instantiateCubes;
     // Use this for initialization
     void Start()
     {
@@ -17,7 +19,7 @@ public class CubeWall : MonoBehaviour
             {
                 for (int z = 0; z < pos.z; z++)
                 {
-                    Rigidbody instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x, y, z), transform.rotation) as Rigidbody;
+                    instantiateCubes = Instantiate(cubeBits, transform.position + new Vector3(x, y, z), transform.rotation) as Rigidbody;
                 }
             }
         }

@@ -29,12 +29,13 @@ public class Follower : MonoBehaviour
 
         if (range <= chaseRange)
         {
-            follower.LookAt(leader);
-            follower.Translate(speed * Vector3.forward * Time.deltaTime);
+            LookAtPlayer();
         }
-        else
-        {
-            return;
-        }
+
+    }
+    void LookAtPlayer()
+    {
+        follower.LookAt(leader);
+        follower.Translate(speed * Vector3.forward * Time.deltaTime);
     }
 }

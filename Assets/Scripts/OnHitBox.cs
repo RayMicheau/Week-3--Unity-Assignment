@@ -10,6 +10,10 @@ public class OnHitBox : MonoBehaviour {
             //Uncomment to destroy boxes on collision
             //Destroy(col.gameObject);
         }
+        else if(col.gameObject.tag == "Player")
+        {
+            Debug.Log("Hit a player!");
+        }
     }
 
     void OnCollisionStay(Collision col)
