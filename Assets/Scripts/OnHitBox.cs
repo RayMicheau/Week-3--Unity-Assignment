@@ -2,7 +2,15 @@
 using System.Collections;
 
 public class OnHitBox : MonoBehaviour {
+    private GameObject player;
+    private PlayerHealth playerHealth;
+    float damageNum = 5f;
 
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.gameObject.GetComponent<PlayerHealth>();
+    }
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.name == "Box(Clone)")
@@ -12,7 +20,8 @@ public class OnHitBox : MonoBehaviour {
         }
         else if(col.gameObject.tag == "Player")
         {
-            Debug.Log("Hit a player!");
+            playerHealth.TakeDamage(damageNum);
+            Debug.Log("Hit Player");
         }
     }
 

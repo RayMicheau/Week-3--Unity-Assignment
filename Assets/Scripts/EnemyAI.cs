@@ -8,7 +8,6 @@ public class EnemyAI : MonoBehaviour {
     public float playerDistance;
     public float rotationDamping;
     public float moveSpeed;
-
     public Rigidbody projectile;
     public float bulletSpeed;
     public float BulletTime;
@@ -31,7 +30,7 @@ public class EnemyAI : MonoBehaviour {
         if (playerDistance < 12.0f  && startMovement && playerDistance > 4.0f) {
             chasePlayer();
         }
-        if (playerDistance < 7.0f) {
+        if (playerDistance < 7.0) {
             if (!shooting) { 
                 InvokeRepeating("Shoot", 0, 1);
                 shooting = true;

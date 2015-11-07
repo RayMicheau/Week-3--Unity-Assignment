@@ -5,7 +5,7 @@ public class BoxOnHitPlayer : MonoBehaviour {
 
     private GameObject player;
     private PlayerHealth playerHealth;
-    float damageNum = 2f;
+    float damageNum = 5f;
 
     void Start()
     {
