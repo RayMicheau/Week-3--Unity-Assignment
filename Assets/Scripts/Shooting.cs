@@ -3,10 +3,11 @@ using System.Collections;
 
 public class Shooting : MonoBehaviour {
 
-    public float speed = 10;
+    public float speed;
+    private float ammoCount = 30;
     public Rigidbody projectile;
-    public Vector3 bulletCount;
     public Light flashlight;
+
 
     void Awake() {
         flashlight.enabled = false;
@@ -17,6 +18,7 @@ public class Shooting : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+            ammoCount -= 1;
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -34,11 +36,13 @@ public class Shooting : MonoBehaviour {
                 flashlight.enabled = false;
             }
     }
-    
-    void Shoot() {
+
+    void Shoot()
+    {
         Rigidbody instantiateProj = Instantiate(projectile, transform.position, transform.rotation) as Rigidbody;
         instantiateProj.velocity = transform.TransformDirection(new Vector3(0, 0, speed));
         Debug.Log("Pew!");
         Destroy(instantiateProj.gameObject, 1.0f);
     }
+
 }

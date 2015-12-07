@@ -5,7 +5,7 @@ public class BoxOnHitPlayer : MonoBehaviour {
 
     private GameObject player;
     private PlayerHealth playerHealth;
-    float damageNum = 5f;
+    int damageNum = 5;
 
     void Start()
     {
@@ -15,8 +15,8 @@ public class BoxOnHitPlayer : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Player"  ) {
-            float damage = damageNum * col.relativeVelocity.magnitude;
+        if (col.gameObject.tag == "Player") {
+            int damage = (int)(damageNum * col.relativeVelocity.magnitude);
             playerHealth.TakeDamage(damage);
             Debug.Log("Hit Player");
         }

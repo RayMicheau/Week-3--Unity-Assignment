@@ -2,14 +2,19 @@
 using System.Collections;
 
 public class OnHitBox : MonoBehaviour {
+
     private GameObject player;
+    private GameObject enemy;
     private PlayerHealth playerHealth;
-    float damageNum = 5f;
+    private EnemyHealth enemyHealth;
+    public float damageNum = 10;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        enemy = GameObject.FindGameObjectWithTag("Enemies");
         playerHealth = player.gameObject.GetComponent<PlayerHealth>();
+        enemyHealth = enemy.gameObject.GetComponent<EnemyHealth>();
     }
     void OnCollisionEnter(Collision col)
     {
@@ -23,16 +28,21 @@ public class OnHitBox : MonoBehaviour {
             playerHealth.TakeDamage(damageNum);
             Debug.Log("Hit Player");
         }
+        else if(col.gameObject.tag == "Enemies")
+        {
+            enemyHealth.TakeDamage((damageNum));
+            Debug.Log(damageNum);
+        }
     }
 
     void OnCollisionStay(Collision col)
     {
-        Debug.Log("Staying");
+        //Debug.Log("Staying");
     }
 
     void OnCollisionExit(Collision col)
     {
-        Debug.Log("Exiting");
+        //Debug.Log("Exiting");
     }
     
 }

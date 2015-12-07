@@ -11,7 +11,10 @@ public class Weapons : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        //Prepare weapons
         nrWeapons = weapons.Length;
+        
+        //Set weapon to the current weapon
         changeWeapon(currWeap);
     }
 
@@ -20,10 +23,11 @@ public class Weapons : MonoBehaviour {
     {
         for (int i = 1; i <= nrWeapons; ++i)
         {
-            if (Input.GetKeyDown("" + i))
+            if (Input.GetKeyDown(i + ""))
             {
+                //Checks for key, then changes the weapon to the selected
+                Debug.Log("Changing weapon to: " + i);
                 currWeap = i - 1;
-
                 changeWeapon(currWeap);
             }
         }
@@ -31,8 +35,10 @@ public class Weapons : MonoBehaviour {
 
     void changeWeapon(int num)
     {
+        Debug.Log("Changing the weapon");
         for (int i = 0; i < nrWeapons; i++)
         {
+            //Swaps to the new active chosen weapon
             if (i == num)
                 weapons[i].gameObject.SetActive(true);
             else
