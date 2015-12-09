@@ -16,6 +16,7 @@ public class OnHitBox : MonoBehaviour {
         playerHealth = player.gameObject.GetComponent<PlayerHealth>();
         enemyHealth = enemy.gameObject.GetComponent<EnemyHealth>();
     }
+
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.name == "Box(Clone)")

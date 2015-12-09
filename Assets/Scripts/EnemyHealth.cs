@@ -40,11 +40,14 @@ public class EnemyHealth : MonoBehaviour {
         //If the enemy should sink
         if (isSinking)
         {
+            capsuleColl.enabled = false;
             //Move them down by the sinkspeed
             transform.Translate(-Vector3.up * sinkSpd * Time.deltaTime);
         }
     }
 
+    //Can be used for raycasting, when/if implemented
+    //TODO: raycast weapon
     public void TakeDamage(float dmg, Vector3 hitPoint)
     {
         //if dead already
@@ -57,7 +60,7 @@ public class EnemyHealth : MonoBehaviour {
 
         UpdateUI();
 
-        //       hitParticles.Play();
+        hitParticles.Play();
 
         if(currHP <= 0)
         {
@@ -76,7 +79,7 @@ public class EnemyHealth : MonoBehaviour {
 
         UpdateUI();
 
-               hitParticles.Play();
+        hitParticles.Play();
 
         if (currHP <= 0)
         {
@@ -87,8 +90,9 @@ public class EnemyHealth : MonoBehaviour {
     void Dead()
     {
         isDead = true;
-        capsuleColl.isTrigger = true;
         enAI.enabled = false;
+        capsuleColl.isTrigger = true;
+        
         StartSinking();
 
         enemyAudio.clip = deathClip;
@@ -106,7 +110,7 @@ public class EnemyHealth : MonoBehaviour {
     {
         isSinking = true;
 
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 2f);
     }
 
 }

@@ -68,6 +68,7 @@ public class PlayerHealth : MonoBehaviour {
 
         HPImage.enabled = false;
         damageImage.enabled = false;
+        playerAudio.enabled = false;
     }
 
     public void TakeDamage(float dmg)

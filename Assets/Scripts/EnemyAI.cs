@@ -3,6 +3,12 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
+    public enum AIType
+    {
+        CHASER,
+        SHOOTER
+    }
+    AIType aiType;
     Transform player;
     PlayerHealth playerHP;
     EnemyHealth enemyHP;
@@ -34,8 +40,14 @@ public class EnemyAI : MonoBehaviour
         enemyHP = GetComponent<EnemyHealth>();
 
         rand = Random.Range(0, 2);
-        shooting = false;
-        startMovement = true;
+        if(rand < 1)
+        {
+            aiType = AIType.SHOOTER;
+        }
+        else
+        {
+            aiType = AIType.CHASER;
+        }
     }
 
     // Update is called once per frame
@@ -43,10 +55,10 @@ public class EnemyAI : MonoBehaviour
     {
         if(enemyHP.currHP > 0 && playerHP.currentHP > 0)
         {
+            agent.SetDestination(player.position);
             playerDistance = Vector3.Distance(player.position, transform.position);
             
-            agent.SetDestination(player.position);
-            if(playerDistance < 7.0f)
+            if(playerDistance < 7.0f && enemyHP.currHP > 0 && aiType == AIType.SHOOTER ||aiType == AIType.CHASER)
             {
                 if (!shooting)
                 {
@@ -104,6 +116,9 @@ public class EnemyAI : MonoBehaviour
 
     void Shoot()
     {
+        if (enemyHP.currHP <= 0)
+            return;
+
         Rigidbody enemyProj = Instantiate(projectile, shootPoint.position, shootPoint.rotation) as Rigidbody;
         enemyProj.velocity = transform.TransformDirection(new Vector3(0, 0, bulletSpeed));
         Destroy(enemyProj.gameObject, 1.0f);
