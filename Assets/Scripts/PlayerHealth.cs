@@ -35,7 +35,8 @@ public class PlayerHealth : MonoBehaviour {
         playerAudio = GetComponent<AudioSource>();
         firstPersonController = GetComponent<FirstPersonController>();
         playerShooting = GetComponentInChildren<Shooting>();
-      
+
+        damageImage = GetComponent<Image>();
         currentHP = health;
     }
 
