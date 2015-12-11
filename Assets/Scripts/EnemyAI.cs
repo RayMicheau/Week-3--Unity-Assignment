@@ -8,8 +8,11 @@ public class EnemyAI : MonoBehaviour
         CHASER,
         SHOOTER
     }
+
+    Animator anim;
     AIType aiType;
-    Transform player;
+    GameObject player;
+    Transform playerTrans;
     PlayerHealth playerHP;
     EnemyHealth enemyHP;
     NavMeshAgent agent;
@@ -19,12 +22,17 @@ public class EnemyAI : MonoBehaviour
 
 
     //Floats
+    public float dmg = 5f;
     public float playerDistance;
     public float rotationDamping;
     public float moveSpeed;
     public float bulletSpeed;
     public float BulletTime;
+    public float timeBetweenAttack = 0.5f;
+    float timer;
+
     public bool startMovement;
+    bool playerInRange;
 
     public int rand;
 
@@ -33,9 +41,10 @@ public class EnemyAI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerTrans = player.transform;
         playerHP = player.GetComponent<PlayerHealth>();
         enemyHP = GetComponent<EnemyHealth>();
 
@@ -53,10 +62,12 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemyHP.currHP > 0 && playerHP.currentHP > 0)
+        timer += Time.deltaTime;
+
+        if( enemyHP.currHP > 0 && playerHP.currentHP > 0)
         {
-            agent.SetDestination(player.position);
-            playerDistance = Vector3.Distance(player.position, transform.position);
+            agent.SetDestination(playerTrans.position);
+            playerDistance = Vector3.Distance(playerTrans.position, transform.position);
             
             if(playerDistance < 7.0f && enemyHP.currHP > 0 && aiType == AIType.SHOOTER ||aiType == AIType.CHASER)
             {
@@ -71,41 +82,21 @@ public class EnemyAI : MonoBehaviour
                 CancelInvoke("Shoot");
                 shooting = false;
             }
-        }
-        else
-        {
-            agent.enabled = false;
-        }
-        
-        /*
-        playerDistance = Vector3.Distance(player.position, transform.position);
-        if (playerDistance < 15.0f)
-        {
-            LookAtPlayer();
-        }
-        if (playerDistance < 12.0f && startMovement && playerDistance > 4.0f)
-        {
-            chasePlayer();
-        }
-        if (playerDistance < 7.0)
-        {
-            if (!shooting)
+            if (playerDistance < 7.0f && enemyHP.currHP > 0 &&  aiType == AIType.CHASER)
             {
-                InvokeRepeating("Shoot", 0, 1);
-                shooting = true;
+                Attack();
             }
         }
         else
         {
-            CancelInvoke("Shoot");
-            shooting = false;
+            //anim.SetTrigger("PlayerDead"); ;
+            agent.enabled = false;
         }
-        */
     }
 
     void LookAtPlayer()
     {
-        Quaternion rotation = Quaternion.LookRotation(player.position - transform.position);
+        Quaternion rotation = Quaternion.LookRotation(playerTrans.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
     }
 
@@ -122,5 +113,30 @@ public class EnemyAI : MonoBehaviour
         Rigidbody enemyProj = Instantiate(projectile, shootPoint.position, shootPoint.rotation) as Rigidbody;
         enemyProj.velocity = transform.TransformDirection(new Vector3(0, 0, bulletSpeed));
         Destroy(enemyProj.gameObject, 1.0f);
+    }
+
+    void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject == player)
+        {
+            playerInRange = true;
+        }
+    }
+
+    void OnTriggerExit(Collider c)
+    {
+        if(c.gameObject == player)
+        {
+            playerInRange = false;
+        }
+    }
+
+    void Attack()
+    {
+        timer = 0f;
+        if(playerHP.currentHP > 0)
+        {
+            playerHP.TakeDamage(dmg);
+        }
     }
 }

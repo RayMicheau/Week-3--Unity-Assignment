@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class EnemyHealth : MonoBehaviour {
+public class EnemyHealth : MonoBehaviour
+{
 
     public float startHP = 100;
     public float currHP;
@@ -11,6 +12,7 @@ public class EnemyHealth : MonoBehaviour {
     public AudioClip deathClip;
 
     //References
+    Animator anim;
     CapsuleCollider capsuleColl;
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
@@ -22,6 +24,7 @@ public class EnemyHealth : MonoBehaviour {
     bool isDead;
     bool isSinking;
 
+    float timeToRespawn = 5.0f;
 
     void Awake()
     {
@@ -30,6 +33,7 @@ public class EnemyHealth : MonoBehaviour {
         enemyAudio = GetComponent<AudioSource>();
         capsuleColl = GetComponent<CapsuleCollider>();
         hitParticles = GetComponentInChildren<ParticleSystem>();
+
 
         //set currHP to startHP when enemy spawns in
         currHP = startHP;
@@ -62,7 +66,7 @@ public class EnemyHealth : MonoBehaviour {
 
         hitParticles.Play();
 
-        if(currHP <= 0)
+        if (currHP <= 0)
         {
             Dead();
         }
@@ -92,11 +96,16 @@ public class EnemyHealth : MonoBehaviour {
         isDead = true;
         enAI.enabled = false;
         capsuleColl.isTrigger = true;
-        
+
         StartSinking();
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play();
+    }
+
+    void Respawn()
+    {
+
     }
 
     public void UpdateUI()
@@ -112,5 +121,4 @@ public class EnemyHealth : MonoBehaviour {
 
         Destroy(gameObject, 2f);
     }
-
 }
