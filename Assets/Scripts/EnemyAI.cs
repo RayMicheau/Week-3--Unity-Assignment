@@ -28,6 +28,8 @@ public class EnemyAI : MonoBehaviour
     public float moveSpeed;
     public float bulletSpeed;
     public float BulletTime;
+
+
     public float timeBetweenAttack = 0.5f;
     float timer;
 
@@ -57,20 +59,24 @@ public class EnemyAI : MonoBehaviour
         {
             aiType = AIType.CHASER;
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         timer += Time.deltaTime;
 
         if( enemyHP.currHP > 0 && playerHP.currentHP > 0)
         {
             agent.SetDestination(playerTrans.position);
+            agent.stoppingDistance = 3;
             playerDistance = Vector3.Distance(playerTrans.position, transform.position);
             
-            if(playerDistance < 7.0f && enemyHP.currHP > 0 && aiType == AIType.SHOOTER ||aiType == AIType.CHASER)
+            if(playerDistance < 7.0f && enemyHP.currHP > 0 && aiType == AIType.SHOOTER)
             {
+                agent.Stop();
                 if (!shooting)
                 {
                     InvokeRepeating("Shoot", 0, 1);
@@ -81,11 +87,24 @@ public class EnemyAI : MonoBehaviour
             {
                 CancelInvoke("Shoot");
                 shooting = false;
+                agent.Resume();
+            }
+
+            if (playerDistance < 3.0f && enemyHP.currHP > 0 && aiType == AIType.CHASER)
+            {
+                agent.Stop();
+                if(timer > timeBetweenAttack)
+                {
+                    Attack();
+                }
+            }
+            else
+            {
+                agent.Resume();
             }
         }
         else
         {
-            //anim.SetTrigger("PlayerDead"); ;
             agent.enabled = false;
         }
     }
@@ -109,22 +128,6 @@ public class EnemyAI : MonoBehaviour
         Rigidbody enemyProj = Instantiate(projectile, shootPoint.position, shootPoint.rotation) as Rigidbody;
         enemyProj.velocity = transform.TransformDirection(new Vector3(0, 0, bulletSpeed));
         Destroy(enemyProj.gameObject, 1.0f);
-    }
-
-    void OnTriggerEnter(Collider c)
-    {
-        if (c.gameObject == player)
-        {
-            playerInRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider c)
-    {
-        if(c.gameObject == player)
-        {
-            playerInRange = false;
-        }
     }
 
     void Attack()

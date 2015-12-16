@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour {
     private FirstPersonController firstPersonController;
     AudioSource playerAudio;
 
-    Shooting playerShooting;
+    public Shooting playerShooting;
 
     public Camera playerCam;
     public Camera deathCam;
@@ -34,9 +34,8 @@ public class PlayerHealth : MonoBehaviour {
     {
         playerAudio = GetComponent<AudioSource>();
         firstPersonController = GetComponent<FirstPersonController>();
-        playerShooting = GetComponent<Shooting>();
 
-        damageImage = GetComponent<Image>();
+       // damageImage = GetComponent<Image>();
         currentHP = health;
     }
 
@@ -44,11 +43,11 @@ public class PlayerHealth : MonoBehaviour {
     {
         if (damaged)
         {
-            //damageImage.color = flashColour;
+            damageImage.color = flashColour;
         }
         else
         {
-            //damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
             damaged = false;
     }
