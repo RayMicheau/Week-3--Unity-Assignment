@@ -2,21 +2,11 @@
 using System.Collections;
 
 public class OnHitBox : MonoBehaviour {
+    //Damage number variables
+    public float damageNum;
+    public float enemyDam;
 
-    private GameObject player;
-    private GameObject enemy;
-    private PlayerHealth playerHealth;
-    private EnemyHealth enemyHealth;
-    public float damageNum = 10;
-
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        enemy = GameObject.FindGameObjectWithTag("Enemies");
-        playerHealth = player.gameObject.GetComponent<PlayerHealth>();
-        enemyHealth = enemy.gameObject.GetComponent<EnemyHealth>();
-    }
-
+    //Only for damage dealing based on what's hit
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.name == "Box(Clone)")
@@ -26,24 +16,14 @@ public class OnHitBox : MonoBehaviour {
         }
         else if(col.gameObject.tag == "Player")
         {
-            playerHealth.TakeDamage(damageNum);
+            col.gameObject.GetComponent<PlayerHealth>().TakeDamage(enemyDam);
             Debug.Log("Hit Player");
         }
         else if(col.gameObject.tag == "Enemies")
         {
-            enemyHealth.TakeDamage((damageNum));
-            Debug.Log(damageNum);
+            col.gameObject.GetComponent<EnemyHealth>().TakeDamage(damageNum);
+            Destroy(this.gameObject);
+            Debug.Log("Hit Enemy");
         }
     }
-
-    void OnCollisionStay(Collision col)
-    {
-        //Debug.Log("Staying");
-    }
-
-    void OnCollisionExit(Collision col)
-    {
-        //Debug.Log("Exiting");
-    }
-    
 }

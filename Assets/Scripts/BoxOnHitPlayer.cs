@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class BoxOnHitPlayer : MonoBehaviour {
 
     private GameObject player;
     private PlayerHealth playerHealth;
+    public Text scoreText;
+
+
+
     int damageNum = 5;
 
     void Start()

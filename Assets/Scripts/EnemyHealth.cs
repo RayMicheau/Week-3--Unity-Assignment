@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float currHP;
     public float hpStat;
     public float sinkSpd = 3.0f;
+    private float kills = 0;
     public AudioClip deathClip;
 
     //References
@@ -24,8 +25,6 @@ public class EnemyHealth : MonoBehaviour
     bool isDead;
     bool isSinking;
 
-    float timeToRespawn = 5.0f;
-
     void Awake()
     {
         //Prep references
@@ -33,7 +32,6 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio = GetComponent<AudioSource>();
         capsuleColl = GetComponent<CapsuleCollider>();
         hitParticles = GetComponentInChildren<ParticleSystem>();
-
 
         //set currHP to startHP when enemy spawns in
         currHP = startHP;
@@ -103,10 +101,6 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.Play();
     }
 
-    void Respawn()
-    {
-
-    }
 
     public void UpdateUI()
     {
@@ -121,4 +115,5 @@ public class EnemyHealth : MonoBehaviour
 
         Destroy(gameObject, 2f);
     }
+
 }

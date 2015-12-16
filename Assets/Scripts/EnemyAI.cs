@@ -82,10 +82,6 @@ public class EnemyAI : MonoBehaviour
                 CancelInvoke("Shoot");
                 shooting = false;
             }
-            if (playerDistance < 7.0f && enemyHP.currHP > 0 &&  aiType == AIType.CHASER)
-            {
-                Attack();
-            }
         }
         else
         {

@@ -25,6 +25,11 @@ public class CubeWall : MonoBehaviour
         }
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
+    }
+
     // Update is called once per frame
     void Update()
     {
