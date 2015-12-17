@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     private float timer = 0;
     public Transform[] spawnPoints;
 
-
+    
     // Use this for initialization
     void Update()
     {
@@ -29,7 +29,7 @@ public class EnemyManager : MonoBehaviour
             return;
 
         int spawnIndex = Random.Range(0, spawnPoints.Length);
-        spawnTimeDelta = spawnTime - Mathf.PingPong(Time.time, .5f);
+        spawnTimeDelta = spawnTime + Mathf.PingPong(Time.time, .5f);
 
         if (timer >= spawnTimeDelta)
         {
@@ -37,8 +37,5 @@ public class EnemyManager : MonoBehaviour
             Instantiate(enemy, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
             spawnTime = Mathf.Lerp(0.1f, spawnTime, 0.95f);
         }
-
-        
-        
     }
 }
