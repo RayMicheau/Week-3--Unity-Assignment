@@ -21,12 +21,22 @@ Loading C:\GameDev\Semester 3\GAME DEVELOPMENT\Week 3\Week-3--Unity-Assignment\g
 Platform assembly: C:\GameDev\Semester 3\GAME DEVELOPMENT\Week 3\Week-3--Unity-Assignment\game_Data\Managed\RAINMetaform.dll (this message is harmless)
 Loading C:\GameDev\Semester 3\GAME DEVELOPMENT\Week 3\Week-3--Unity-Assignment\game_Data\Managed\RAINMetaform.dll into Unity Child Domain
 Platform assembly: C:\GameDev\Semester 3\GAME DEVELOPMENT\Week 3\Week-3--Unity-Assignment\game_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.053 seconds
+- Completed reload, in  0.048 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: C:\GameDev\Semester 3\GAME DEVELOPMENT\Week 3\Week-3--Unity-Assignment\game_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2708 -> priority: 1 
-  Thread -> id: 2c3c -> priority: 1 
+  Thread -> id: 2760 -> priority: 1 
+  Thread -> id: 3828 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.115729 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 753.
+Total: 0.273270 ms (FindLiveObjects: 0.034639 ms CreateObjectMapping: 0.022237 ms MarkObjects: 0.208266 ms  DeleteObjects: 0.006842 ms)
+
+Changing the weapon
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
